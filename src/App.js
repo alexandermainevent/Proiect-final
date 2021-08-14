@@ -7,6 +7,8 @@ import {
 } from "react-router-dom";
 import { HomePage, LoginPage, RegisterPage } from "./pages";
 
+export default App;
+
 function App() {
   const history = useHistory();
   return (
@@ -19,5 +21,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;

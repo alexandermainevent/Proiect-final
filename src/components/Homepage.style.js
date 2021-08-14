@@ -6,8 +6,16 @@ import {
   FaEnvelope,
   FaRegUserCircle,
 } from "react-icons/fa";
+import { useHistory } from "react-router-dom";
 
 export const Search = () => {
+  const history = useHistory();
+
+  const handleLogOut = () => {
+    localStorage.clear();
+    history.push("login");
+  };
+
   return (
     <Container>
       <Icons>
@@ -21,7 +29,7 @@ export const Search = () => {
         <FaEnvelope size="20" />
       </Icons>
       <Icons>
-        <FaRegUserCircle size="20" />
+        <FaRegUserCircle size="20" onClick={handleLogOut} />
       </Icons>
     </Container>
   );
@@ -38,14 +46,12 @@ const Icons = styled.div`
   display: flex;
   align-items: center;
   margin: 0 10px;
+  cursor: pointer;
 `;
 
 export const HomeContainer = styled.div`
-  background-image: url("https://source.unsplash.com/random");
-  background-size: cover;
+  background-color: lightgray;
   height: 100vh;
-  background-repeat: no-repeat;
-  background-position: center center;
 `;
 
 const SearchBar = styled.input`

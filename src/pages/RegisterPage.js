@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Input } from "../components";
 import { Title, Button, Page, Container } from "../components/Form.style";
 import { api } from "../api/apii";
+import { useHistory } from "react-router-dom";
+
 export const RegisterPage = () => {
+  const history = useHistory();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -32,17 +36,18 @@ export const RegisterPage = () => {
       setPasswordError("Password is required.");
       return;
     }
-    if (repeatPassword.value !== password.value) {
-      setRepeatPasswordError("Passwords do not match.");
+    if (repeatPassword === "") {
+      setRepeatPasswordError("Password is required.");
+      return;
     }
 
-    const { data, error } = await api.register({
-      email,
-      password,
+    const request = await api.register({
       firstName,
       lastName,
-      repeatPassword,
+      email,
+      password,
     });
+    const { data, error } = request;
 
     if (error !== undefined) {
       alert(error);
@@ -50,7 +55,9 @@ export const RegisterPage = () => {
     }
     if (data !== undefined) {
       alert("Register complete.");
-      return;
+      setTimeout(() => {
+        history.push("/login");
+      }, 3000);
     }
   };
 
@@ -64,7 +71,7 @@ export const RegisterPage = () => {
           type="text"
           value={firstName}
           error={firstError}
-          handleOnChange={setFirstName}
+          handleOnChange={(e) => setFirstName(e.target.value)} // REZOLVAREA
         ></Input>
         <Input
           label="Last Name"
@@ -72,7 +79,7 @@ export const RegisterPage = () => {
           type="text"
           value={lastName}
           error={lastError}
-          handleOnChange={setLastName}
+          handleOnChange={(e) => setLastName(e.target.value)}
         ></Input>
         <Input
           label="Email"
@@ -80,7 +87,7 @@ export const RegisterPage = () => {
           type="email"
           value={email}
           error={emailError}
-          handleOnChange={setEmail}
+          handleOnChange={(e) => setEmail(e.target.value)}
         />
         <Input
           label="Password"
@@ -88,7 +95,7 @@ export const RegisterPage = () => {
           type="password"
           value={password}
           error={passwordError}
-          handleOnChange={setPassword}
+          handleOnChange={(e) => setPassword(e.target.value)}
         />
         <Input
           label="Repeat Password"
@@ -96,7 +103,7 @@ export const RegisterPage = () => {
           type="password"
           value={repeatPassword}
           error={repeatPasswordError}
-          handleOnChange={setRepeatPassword}
+          handleOnChange={(e) => setRepeatPassword(e.target.value)}
         />
 
         <Button style={{ fontSize: "20px" }} onClick={handleSubmit}>

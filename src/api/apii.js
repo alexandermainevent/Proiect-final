@@ -30,21 +30,21 @@ export const api = {
 
     return { data, error };
   },
-  register: async (email, password, first_name, last_name) => {
+  register: async ({ email, password, firstName, lastName }) => {
     let data, error;
     try {
       const request = await fetch(
-        "https://backend-curs.herokuapp.com/users/login",
+        "https://backend-curs.herokuapp.com/users/register",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            first_name: firstName,
+            last_name: lastName,
             email: email,
             password: password,
-            first_name: first_name,
-            last_name: last_name,
           }),
         }
       );

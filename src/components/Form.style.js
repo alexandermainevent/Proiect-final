@@ -34,4 +34,5 @@ export const Button = styled.div`
   background-color: coral;
   text-align: center;
   margin-top: 30px;
+  cursor: pointer;
 `;

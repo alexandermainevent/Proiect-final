@@ -43,7 +43,7 @@ export const LoginPage = () => {
           type="email"
           value={email}
           error={emailError}
-          handleOnChange={setEmail}
+          handleOnChange={(e) => setEmail(e.target.value)}
         />
         <Input
           label="Password"
@@ -51,7 +51,7 @@ export const LoginPage = () => {
           type="password"
           value={password}
           error={passwordError}
-          handleOnChange={setPassword}
+          handleOnChange={(e) => setPassword(e.target.value)}
         />
         <Button onClick={handleSubmitLogin}>LOG IN</Button>
       </Container>
